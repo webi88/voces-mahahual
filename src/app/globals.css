@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    @apply bg-arena-50 text-mar-950 font-body antialiased;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(31,196,224,0.07), transparent 35%),
+      radial-gradient(circle at 85% 100%, rgba(251,176,36,0.08), transparent 40%);
+    background-attachment: fixed;
+  }
+  ::selection { @apply bg-sol-200 text-mar-950; }
+}
+
+@layer components {
+  .wrap { @apply max-w-5xl mx-auto px-4 sm:px-6; }
+  .pill { @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold; }
+  .card {
+    @apply bg-white rounded-2xl border-2 border-arena-200;
+    box-shadow: 0 4px 0 rgba(26,72,94,0.05);
+  }
+  .card-hover {
+    @apply transition-transform hover:-translate-y-0.5 hover:border-mar-300;
+  }
+  .btn-sun {
+    @apply inline-flex items-center gap-2 px-5 py-3 bg-sol-400 hover:bg-sol-500 text-mar-950 font-bold rounded-full border-2 border-mar-950/10 transition-all hover:-translate-y-0.5;
+    box-shadow: 0 4px 0 rgba(122,80,10,0.25);
+  }
+  .btn-mar {
+    @apply inline-flex items-center gap-2 px-5 py-3 bg-mar-500 hover:bg-mar-600 text-white font-bold rounded-full transition-all hover:-translate-y-0.5;
+    box-shadow: 0 4px 0 rgba(10,131,160,0.4);
+  }
+  /* Avatares con iniciales */
+  .avatar {
+    @apply w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0;
+  }
+}
+
+/* Hand-drawn underline accent */
+.squiggle {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8'><path d='M0,4 Q25,0 50,4 T100,4' stroke='%23fbb024' stroke-width='3' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 8px;
+  padding-bottom: 10px;
+}
