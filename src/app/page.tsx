@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import PublicarBox from "@/components/PublicarBox";
@@ -14,8 +14,22 @@ import { COMENTARIOS, type Comentario as TComentario } from "@/lib/comentarios";
 const normalizar = (s: string) =>
   s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
+const LS_KEY = "voces_mahahual_comentarios_v1";
+
 export default function Home() {
   const [comentarios, setComentarios] = useState<TComentario[]>(COMENTARIOS);
+
+  // Cargar comentarios extra desde localStorage al iniciar
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      const extras: TComentario[] = JSON.parse(raw);
+      if (Array.isArray(extras) && extras.length) {
+        setComentarios((base) => [...extras, ...base]);
+      }
+    } catch {}
+  }, []);
   const [query, setQuery] = useState("");
   const [temaActivo, setTemaActivo] = useState<string | null>(null);
   const [sort, setSort] = useState<SortMode>("recientes");
@@ -40,6 +54,14 @@ export default function Home() {
       destacado: false,
     };
     setComentarios((prev) => [nuevo, ...prev]);
+
+    // Persistir en localStorage (solo los publicados desde el navegador)
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      const extras: TComentario[] = raw ? JSON.parse(raw) : [];
+      localStorage.setItem(LS_KEY, JSON.stringify([nuevo, ...extras]));
+    } catch {}
+
     // Si el tema activo es distinto al del nuevo comentario, cambiamos al del nuevo
     if (temaActivo && temaActivo !== tema) setTemaActivo(tema);
   };
