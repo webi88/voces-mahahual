@@ -6,40 +6,31 @@ import { MessageSquareText, Users, Waves } from "lucide-react";
 export default function Header() {
   return (
     <header className="relative overflow-hidden">
-      {/* Fondo tipo agua caribeña */}
-      <div className="absolute inset-0 bg-gradient-to-br from-mar-200 via-mar-300 to-mar-500">
-        <div className="absolute inset-0 opacity-30 mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 30%, white 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.6) 0%, transparent 40%)",
-          }}
+      {/* Foto de portada real */}
+      <div className="absolute inset-0">
+        <img
+          src="/portada.jpg"
+          alt=""
+          className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-mar-900/30 via-mar-900/20 to-mar-900/55" />
       </div>
 
       <div className="relative wrap pt-10 pb-12 lg:pb-16">
         {/* Logo + título */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          {/* Logo (cuando el usuario lo suba estará en /logo-voces.png) */}
+          {/* Logo */}
           <motion.div
             initial={{ scale: 0.9, rotate: -5, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "backOut" }}
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white border-4 border-white shadow-xl flex items-center justify-center overflow-hidden flex-shrink-0"
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex-shrink-0"
           >
-            {/* Si existe /logo-voces.png lo muestra; si no, un fallback */}
-            <picture>
-              <source srcSet="/logo-voces.png" type="image/png" />
-              <img
-                src="/logo-voces.png"
-                alt="Voces de Mahahual"
-                className="w-full h-full object-contain p-1"
-                onError={(e) => {
-                  // fallback: oculta la imagen rota para que se vea el emoji debajo
-                  (e.currentTarget as HTMLImageElement).style.display = "none";
-                }}
-              />
-            </picture>
-            <span className="absolute text-4xl">🐚</span>
+            <img
+              src="/logo.png"
+              alt="Voces de Mahahual"
+              className="w-full h-full object-cover"
+            />
           </motion.div>
 
           <div className="flex-1">

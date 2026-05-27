@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Heart, Facebook } from "lucide-react";
 import type { Comentario as TComentario } from "@/lib/comentarios";
 
 const AVATAR_COLORS = [
@@ -72,13 +72,22 @@ export default function Comentario({ c }: { c: TComentario }) {
               {likes}
             </button>
 
-            <button className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold text-mar-700 hover:bg-arena-100 transition-colors">
-              <MessageCircle className="w-3.5 h-3.5" />
-              {c.respuestas}
-            </button>
-
-            <button className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold text-mar-700 hover:bg-arena-100 transition-colors ml-auto">
-              <Share2 className="w-3.5 h-3.5" />
+            <button
+              onClick={() => {
+                const url =
+                  typeof window !== "undefined"
+                    ? window.location.origin + window.location.pathname
+                    : "";
+                const quote = `“${c.texto}” — ${c.autor}, en Voces de Mahahual`;
+                const share = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  url,
+                )}&quote=${encodeURIComponent(quote)}`;
+                window.open(share, "_blank", "noopener,noreferrer,width=600,height=600");
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold text-mar-700 hover:bg-mar-50 hover:text-mar-700 transition-colors ml-auto"
+              title="Compartir en Facebook"
+            >
+              <Facebook className="w-3.5 h-3.5" />
               Compartir
             </button>
           </div>
