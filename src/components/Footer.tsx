@@ -46,8 +46,6 @@ export default function Footer() {
           >
             <span className="opacity-60">📝</span>
             <span className="underline underline-offset-2">Blog del puerto</span>
-            <span className="text-mar-500">·</span>
-            <span className="text-mar-500">próximamente</span>
           </a>
         </div>
 

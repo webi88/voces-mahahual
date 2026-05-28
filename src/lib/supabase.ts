@@ -115,6 +115,50 @@ export async function darLike(id: number): Promise<void> {
   }
 }
 
+// ─── Blog posts (from shared posts table) ───────────────────
+
+export interface BlogPost {
+  id: string;
+  site: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  cover_image: string;
+  images: string[];
+  category: string;
+  author: string;
+  read_time: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function fetchBlogPosts(): Promise<BlogPost[]> {
+  if (!SUPABASE_READY) return [];
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("site", "voces-mahahual")
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
+  if (error) { console.warn("[voces] blog fetch error:", error.message); return []; }
+  return (data ?? []) as BlogPost[];
+}
+
+export async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
+  if (!SUPABASE_READY) return null;
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("site", "voces-mahahual")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .single();
+  if (error) return null;
+  return data as BlogPost;
+}
+
 // ─── Util: tiempo relativo (sin libs) ───
 function tiempoRelativo(iso: string): string {
   const diff = (Date.now() - new Date(iso).getTime()) / 1000;
