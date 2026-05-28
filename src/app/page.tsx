@@ -9,32 +9,26 @@ import Sidebar, { type SortMode } from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { TEMAS } from "@/lib/temas";
 import { COMENTARIOS, type Comentario as TComentario } from "@/lib/comentarios";
+import { fetchComentariosExtra, publicarComentario } from "@/lib/supabase";
 
 // Normaliza para búsqueda sin acentos / case
 const normalizar = (s: string) =>
   s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-const LS_KEY = "voces_mahahual_comentarios_v1";
-
 export default function Home() {
   const [comentarios, setComentarios] = useState<TComentario[]>(COMENTARIOS);
-
-  // Cargar comentarios extra desde localStorage al iniciar
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (!raw) return;
-      const extras: TComentario[] = JSON.parse(raw);
-      if (Array.isArray(extras) && extras.length) {
-        setComentarios((base) => [...extras, ...base]);
-      }
-    } catch {}
-  }, []);
   const [query, setQuery] = useState("");
   const [temaActivo, setTemaActivo] = useState<string | null>(null);
   const [sort, setSort] = useState<SortMode>("recientes");
 
-  const publicar = ({
+  // Cargar comentarios publicados (Supabase o fallback localStorage)
+  useEffect(() => {
+    fetchComentariosExtra().then((extras) => {
+      if (extras.length) setComentarios((base) => [...extras, ...base]);
+    });
+  }, []);
+
+  const publicar = async ({
     autor,
     tema,
     texto,
@@ -43,27 +37,14 @@ export default function Home() {
     tema: string;
     texto: string;
   }) => {
-    const nuevo: TComentario = {
-      id: Date.now(),
-      autor,
-      tema,
-      texto,
-      cuando: "ahora mismo",
-      likes: 0,
-      respuestas: 0,
-      destacado: false,
-    };
-    setComentarios((prev) => [nuevo, ...prev]);
-
-    // Persistir en localStorage (solo los publicados desde el navegador)
     try {
-      const raw = localStorage.getItem(LS_KEY);
-      const extras: TComentario[] = raw ? JSON.parse(raw) : [];
-      localStorage.setItem(LS_KEY, JSON.stringify([nuevo, ...extras]));
-    } catch {}
-
-    // Si el tema activo es distinto al del nuevo comentario, cambiamos al del nuevo
-    if (temaActivo && temaActivo !== tema) setTemaActivo(tema);
+      const nuevo = await publicarComentario({ autor, tema, texto });
+      setComentarios((prev) => [nuevo, ...prev]);
+      if (temaActivo && temaActivo !== tema) setTemaActivo(tema);
+    } catch (e) {
+      console.error("Error al publicar:", e);
+      alert("No pudimos publicar tu comentario. Intenta de nuevo en un momento.");
+    }
   };
 
   // Conteo por tema (sobre la base no filtrada)
