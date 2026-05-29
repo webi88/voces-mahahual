@@ -38,15 +38,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Blog discreto */}
+        {/* Blog — solo punto */}
         <div className="mt-8 pt-6 border-t border-mar-800/60">
-          <a
-            href="/blog"
-            className="inline-flex items-center gap-2 text-mar-300 hover:text-white text-xs transition-colors"
-          >
-            <span className="opacity-60">📝</span>
-            <span className="underline underline-offset-2">Blog del puerto</span>
-          </a>
+          <a href="/blog" className="block w-1.5 h-1.5 rounded-full bg-mar-600 hover:bg-mar-400 transition-colors" title="Blog" />
         </div>
 
         <div className="mt-6 text-center text-[11px] text-mar-400 flex items-center justify-center gap-1.5">

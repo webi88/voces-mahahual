@@ -33,11 +33,11 @@ export default function PublicarBox({
         <div className="flex items-center gap-2 mb-3">
           <Sparkles className="w-4 h-4 text-sol-500" />
           <h2 className="font-display font-bold text-lg text-mar-900">
-            Di lo tuyo, vecin@
+            Di lo tuyo
           </h2>
         </div>
         <p className="text-mar-700 text-sm mb-4">
-          Página comunitaria. Sin partidos, sin filtros, sin pleitos. Respetando a los vecinos, claro 🌴
+          Foro abierto. Sin partidos, sin filtros, sin pleitos. Respetando a todos, claro 🌴
         </p>
 
         <div className="grid sm:grid-cols-2 gap-3 mb-3">
@@ -62,7 +62,7 @@ export default function PublicarBox({
         </div>
 
         <textarea
-          placeholder="¿Qué piensas? ¿Qué propones? Cuéntale a la gente del puerto..."
+          placeholder="¿Qué piensas? ¿Qué propones? Comparte tu opinión..."
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
           rows={3}
@@ -76,7 +76,7 @@ export default function PublicarBox({
                 ✓ Listo. Tu comentario ya aparece allá abajo 👇
               </span>
             ) : (
-              "Tu comentario quedará visible para todos los vecinos."
+              "Tu comentario quedará visible para todos."
             )}
           </p>
           <button type="submit" className="btn-sun text-sm">

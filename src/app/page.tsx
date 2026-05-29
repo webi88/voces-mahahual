@@ -112,7 +112,7 @@ export default function Home() {
                     {temaInfo?.bajada ??
                       (query
                         ? `Buscando "${query}"`
-                        : "Lo que dicen los vecinos del puerto, todo junto.")}
+                        : "Todos los temas, todo junto.")}
                   </p>
                 </div>
               </div>
