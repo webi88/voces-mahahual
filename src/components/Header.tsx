@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageSquareText, Users, Waves, Plus } from "lucide-react";
+import { Waves, Plus } from "lucide-react";
 
 export default function Header() {
   return (
@@ -57,25 +57,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Stats casual */}
-        <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
-          {[
-            { icon: Users, n: "247", t: "vecinos opinando" },
-            { icon: MessageSquareText, n: "70+", t: "comentarios" },
-            { icon: Waves, n: "8", t: "temas activos" },
-          ].map(({ icon: Icon, n, t }) => (
-            <div
-              key={t}
-              className="bg-white/85 backdrop-blur rounded-2xl px-4 py-2.5 flex items-center gap-2.5 border-2 border-white"
-            >
-              <Icon className="w-4 h-4 text-mar-600" />
-              <div className="leading-tight">
-                <div className="font-display font-bold text-mar-900">{n}</div>
-                <div className="text-[10px] uppercase tracking-wide text-mar-700">{t}</div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Onda decorativa abajo */}
