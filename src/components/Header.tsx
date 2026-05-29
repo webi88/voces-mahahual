@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageSquareText, Users, Waves } from "lucide-react";
+import { MessageSquareText, Users, Waves, Plus } from "lucide-react";
 
 export default function Header() {
   return (
@@ -34,9 +34,19 @@ export default function Header() {
           </motion.div>
 
           <div className="flex-1">
-            <span className="pill bg-white/70 text-mar-800 text-xs backdrop-blur">
-              <Waves className="w-3.5 h-3.5" /> Página vecinal · Costa Maya
-            </span>
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <span className="pill bg-white/70 text-mar-800 text-xs backdrop-blur">
+                <Waves className="w-3.5 h-3.5" /> Página vecinal · Costa Maya
+              </span>
+              <a
+                href="https://api.whatsapp.com/send/?phone=525643848889&text&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sol-400 hover:bg-sol-300 text-mar-950 text-xs font-bold shadow transition-colors"
+              >
+                <Plus className="w-3 h-3" /> Crea tu Foro
+              </a>
+            </div>
             <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white mt-3 leading-[0.95] drop-shadow-md">
               Voces de{" "}
               <span className="text-sol-300">Mahahual</span>

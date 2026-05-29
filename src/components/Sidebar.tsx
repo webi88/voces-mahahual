@@ -143,7 +143,7 @@ export default function Sidebar({
           ¿No ves tu opinión?
         </p>
         <p className="text-mar-800/80 text-xs mt-1 leading-relaxed">
-          Ahí arriba está la caja para publicar. ¡Ánimo, vecin@!
+          Ahí arriba está la caja para publicar.
         </p>
       </div>
     </aside>
